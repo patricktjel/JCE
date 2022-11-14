@@ -2,6 +2,7 @@ pipeline {
   agent any
   stages {
     stage('parallel') {
+      failFast true
       parallel {
         stage('Buzz Build') {
           agent any
@@ -24,6 +25,5 @@ pipeline {
   }
   environment {
     TEST = 'test'
-    failfast = 'true'
   }
 }
