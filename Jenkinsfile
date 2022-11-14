@@ -4,6 +4,7 @@ pipeline {
     stage('Buzz Build') {
       agent any
       steps {
+        echo "The value is: ${TEST}"
         sh './jenkins/build.sh'
         archiveArtifacts(artifacts: 'target/*.jar', fingerprint: true)
       }
@@ -15,5 +16,14 @@ pipeline {
       }
     }
 
+    stage('error') {
+      steps {
+        junit '**/surefire-reports/**/*.xml'
+      }
+    }
+
+  }
+  environment {
+    TEST = 'test'
   }
 }
