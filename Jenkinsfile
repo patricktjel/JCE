@@ -4,12 +4,12 @@ pipeline {
     stage('test') {
       steps {
         echo 'tmp'
-        sleep 2
+        timeout(time: 3, unit: 'SECONDS') {
+          input(message: 'Deploy to Stage', ok: 'Yes, let\'s do it!')
+        }
+
       }
     }
 
-  }
-  options {
-    timeout(time: 1, unit: 'SECONDS')
   }
 }
