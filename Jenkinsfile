@@ -2,18 +2,13 @@ pipeline {
   agent any
   stages {
     stage('example') {
-      when {
-        equals expected: 'Patrick', actual: "${PERSON}"
-      }
-      input {
-        message 'Should we continue?'
-        id 'Yes'
-        parameters {
-          string(name: 'PERSON', defaultValue: 'Mr', description: 'Who?')
-        }
-      }
       steps {
-        echo 'test'
+        withCredentials(bindings: [string(credentialsId: 'my-elastic-key', 
+                                            variable: 'ELASTIC_ACCESS_KEY')]) {
+          sh 'env | grep ELASTIC_ACCESS_KEY'
+          sh "echo ${ELASTIC_ACCESS_KEY} > secret-file.txt"
+        }
+
       }
     }
 
