@@ -1,16 +1,17 @@
 pipeline {
   agent any
   stages {
-    stage('example') {
+    stage('test') {
       steps {
-        withCredentials(bindings: [string(credentialsId: 'my-elastic-key', 
-                                                    variable: 'ELASTIC_ACCESS_KEY')]) {
-          sh 'env | grep ELASTIC_ACCESS_KEY'
-          sh "echo ${ELASTIC_ACCESS_KEY}"
-        }
-
+        sh """
+                                                echo "Service user is $SERVICE_CREDS_USR"
+                                                echo "Service password is $SERVICE_CREDS_PSW"
+                                            """
       }
     }
 
+  }
+  environment {
+    SERVICE_CREDS = credentials('git')
   }
 }
