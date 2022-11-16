@@ -3,11 +3,8 @@ pipeline {
   stages {
     stage('test') {
       steps {
-        echo 'tmp'
-        timeout(time: 3, unit: 'SECONDS') {
-          input(message: 'Deploy to Stage', ok: 'Yes, let\'s do it!')
-        }
-
+        sh 'echo abcd > test.txt'
+        archiveArtifacts(artifacts: 'test.txt', fingerprint: true)
       }
     }
 
